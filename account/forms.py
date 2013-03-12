@@ -4,7 +4,12 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib import auth
-from django.contrib.auth.models import User
+try:
+    from django.contrib.auth import get_user_model
+except ImportError: # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 
 from account.conf import settings
 from account.models import EmailAddress
